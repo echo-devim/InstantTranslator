@@ -22,9 +22,9 @@ def getSelectedText():
 def getTranslation(text): #en->it
     #baseUrl is encoded because it is an illegal call to the GT API (i.e. it is a workaround, authentication not required)
     #I would prefer to publish the url a little bit obfuscated
-    baseUrl = base64.b64decode("aHR0cHM6Ly90cmFuc2xhdGUuZ29vZ2xlYXBpcy5jb20vdHJhbnNsYXRlX2Evc2luZ2xlP2NsaWVudD1ndHg=")
+    baseUrl = base64.b64decode("aHR0cHM6Ly90cmFuc2xhdGUuZ29vZ2xlYXBpcy5jb20vdHJhbnNsYXRlX2Evc2luZ2xlP2NsaWVudD1ndHg=").decode('utf-8')
     #Source language (sl) could be also 'auto'
-    response = requests.get(baseUrl + "&sl=en&tl=it&dt=t&q=" + urllib.quote_plus(text)).content
+    response = requests.get(baseUrl + "&sl=en&tl=it&dt=t&q=" + urllib.parse.quote_plus(text)).content
     data = json.loads(response)
     return data[0][0][0]
 
